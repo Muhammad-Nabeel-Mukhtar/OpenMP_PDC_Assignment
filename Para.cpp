@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    const int SIZE = 500000000;  
+    const int SIZE = 500000000;  //5 Million
     int* arr = new int[SIZE];
     long long sum = 0;
 
@@ -21,6 +21,24 @@ int main() {
     for (int i = 0; i < SIZE; i++) {
         sum += arr[i];
     }
+
+    /*
+    with atomic
+    #pragma omp parallel for num_threads(num_threads) schedule(dynamic, 100000)
+    for (int i = 0; i < SIZE; i++) {
+    #pragma omp atomic
+    sum += arr[i];
+}
+
+    with critical
+    #pragma omp parallel for num_threads(num_threads) schedule(dynamic, 100000)
+    for (int i = 0; i < SIZE; i++) {
+    #pragma omp critical
+    sum += arr[i];
+}
+
+
+    */
 
     double end_time = omp_get_wtime();
 
